@@ -1,5 +1,8 @@
+from email import message
 import os
 from dotenv import load_dotenv
+from openai import OpenAI
+
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
@@ -16,3 +19,14 @@ elif api_key.strip() != api_key:
 
 else:
     print("OPENAI_API_KEY is valid")
+
+
+client = OpenAI()
+message = [{'role': 'user', 'content': 'What is the capital of USA?'}]
+
+response = client.responses.create(
+    model="gpt-4o-mini",
+    input= message
+)
+print(response.output_text)
+
