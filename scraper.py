@@ -11,13 +11,12 @@ def website_scraper(url):
         soup = BeautifulSoup(response.content, "html.parser")
         title = soup.find("h1").get_text() if soup.find("h1") else "No title found"
         paragraphs = soup.find_all("p")
-        return title , paragraphs
+        print(len(paragraphs))
+        content = "\n".join( p.get_text(strip=True) for p in paragraphs)
+        return title + content
     else:
         print(f"Failed to fetch the website: {response.status_code}")
 
 
-title,rep = website_scraper("https://www.foxnews.com/world/iran-secures-un-role-backing-from-uk-france-canada-australia-us-stands-alone")
-print(title + "\n")
-for p in rep:
-    print(p.get_text() + "\n")
+
 
